@@ -6,6 +6,7 @@ servers:
 env:
   clear:
     APP_ENV: preview
+    BASE_URL: https://<%= ENV['INFRA_WEB_IP'] %>.nip.io
   secret:
     - DATABASE_URL
     - GOOGLE_CLIENT_ID
