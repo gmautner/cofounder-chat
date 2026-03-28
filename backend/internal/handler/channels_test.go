@@ -204,6 +204,50 @@ func TestLeaveChannel(t *testing.T) {
 	}
 }
 
+func TestListPublicChannels(t *testing.T) {
+	server := httptest.NewServer(testMux)
+	defer server.Close()
+
+	cookie, _ := createTestUser(t, "browse-channels@example.com")
+
+	// Browse public channels
+	resp := authenticatedRequest(t, server, "GET", "/api/channels/browse", nil, cookie)
+
+	if resp.StatusCode != http.StatusOK {
+		t.Fatalf("expected status 200, got %d", resp.StatusCode)
+	}
+
+	var channels []struct {
+		Name      string `json:"name"`
+		IsPrivate bool   `json:"is_private"`
+	}
+	decodeJSON(t, resp, &channels)
+
+	// Should return at least #general (created when user logged in)
+	if len(channels) < 1 {
+		t.Fatal("expected at least one public channel")
+	}
+
+	// All returned channels must be public
+	for _, ch := range channels {
+		if ch.IsPrivate {
+			t.Errorf("browse returned private channel: %s", ch.Name)
+		}
+	}
+
+	// #general should be in the list
+	foundGeneral := false
+	for _, ch := range channels {
+		if ch.Name == "general" {
+			foundGeneral = true
+			break
+		}
+	}
+	if !foundGeneral {
+		t.Error("expected to find general channel in browse results")
+	}
+}
+
 func TestListChannelMembers(t *testing.T) {
 	server := httptest.NewServer(testMux)
 	defer server.Close()

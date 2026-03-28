@@ -89,6 +89,7 @@ func main() {
 	// Channel routes
 	apiMux.HandleFunc("POST /api/channels", h.HandleCreateChannel)
 	apiMux.HandleFunc("GET /api/channels", h.HandleListChannels)
+	apiMux.HandleFunc("GET /api/channels/browse", h.HandleListPublicChannels)
 	apiMux.HandleFunc("GET /api/channels/{id}", h.HandleGetChannel)
 	apiMux.HandleFunc("POST /api/channels/{id}/join", h.HandleJoinChannel)
 	apiMux.HandleFunc("POST /api/channels/{id}/leave", h.HandleLeaveChannel)

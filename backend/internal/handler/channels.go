@@ -182,6 +182,23 @@ func (h *Handler) HandleListChannelMembers(w http.ResponseWriter, r *http.Reques
 	writeJSON(w, http.StatusOK, members)
 }
 
+func (h *Handler) HandleListPublicChannels(w http.ResponseWriter, r *http.Request) {
+	user := GetUserFromContext(r.Context())
+	if user == nil {
+		writeError(w, http.StatusUnauthorized, "not authenticated")
+		return
+	}
+
+	channels, err := h.Queries.ListPublicChannels(r.Context())
+	if err != nil {
+		slog.Error("failed to list public channels", "err", err)
+		writeError(w, http.StatusInternalServerError, "failed to list channels")
+		return
+	}
+
+	writeJSON(w, http.StatusOK, channels)
+}
+
 // parseUUID converts a string UUID to pgtype.UUID
 func parseUUID(s string) (pgtype.UUID, error) {
 	var uuid pgtype.UUID

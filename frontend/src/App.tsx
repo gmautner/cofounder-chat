@@ -1,42 +1,63 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { AuthProvider, useAuth } from '@/hooks/useAuth'
+import { LoginPage } from '@/pages/LoginPage'
+import { ChatPage } from '@/pages/ChatPage'
+import { Loader2 } from 'lucide-react'
 
-function LoginPage() {
+function LoadingScreen() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-8">Cofounder Chat</h1>
-        <a
-          href="/auth/google/login"
-          className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-lg font-medium text-gray-700 shadow-md border hover:bg-gray-50 transition-colors"
-        >
-          Sign in with Google
-        </a>
+    <div className="flex h-screen items-center justify-center bg-background">
+      <div className="flex flex-col items-center gap-3">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <p className="text-sm text-muted-foreground">Loading...</p>
       </div>
     </div>
   )
 }
 
-function ChatLayout() {
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const { user, loading } = useAuth()
+  if (loading) return <LoadingScreen />
+  if (!user) return <Navigate to="/login" replace />
+  return <>{children}</>
+}
+
+function PublicRoute({ children }: { children: React.ReactNode }) {
+  const { user, loading } = useAuth()
+  if (loading) return <LoadingScreen />
+  if (user) return <Navigate to="/" replace />
+  return <>{children}</>
+}
+
+function AppRoutes() {
   return (
-    <div className="flex h-screen">
-      <div className="w-64 bg-gray-900 text-white p-4">
-        <h2 className="text-lg font-bold">Cofounder Chat</h2>
-        <p className="text-gray-400 text-sm mt-4">Channels and DMs will appear here</p>
-      </div>
-      <div className="flex-1 flex items-center justify-center bg-white">
-        <p className="text-gray-500">Select a channel or conversation to start chatting</p>
-      </div>
-    </div>
+    <Routes>
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <LoginPage />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/*"
+        element={
+          <ProtectedRoute>
+            <ChatPage />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   )
 }
 
 export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/*" element={<ChatLayout />} />
-      </Routes>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
     </BrowserRouter>
   )
 }
