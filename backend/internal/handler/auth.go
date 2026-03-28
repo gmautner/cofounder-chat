@@ -32,6 +32,17 @@ type GoogleUserInfo struct {
 	Picture string `json:"picture"`
 }
 
+func (h *Handler) baseURL(r *http.Request) string {
+	if h.Config.BaseURL != "" {
+		return h.Config.BaseURL
+	}
+	scheme := "https"
+	if r.TLS == nil && !strings.HasPrefix(r.Header.Get("X-Forwarded-Proto"), "https") {
+		scheme = "http"
+	}
+	return scheme + "://" + r.Host
+}
+
 func (h *Handler) HandleGoogleLogin(w http.ResponseWriter, r *http.Request) {
 	state := generateToken(16)
 	http.SetCookie(w, &http.Cookie{
@@ -45,7 +56,7 @@ func (h *Handler) HandleGoogleLogin(w http.ResponseWriter, r *http.Request) {
 
 	params := url.Values{
 		"client_id":     {h.Config.GoogleClientID},
-		"redirect_uri":  {h.Config.BaseURL + "/auth/google/callback"},
+		"redirect_uri":  {h.baseURL(r) + "/auth/google/callback"},
 		"response_type": {"code"},
 		"scope":         {"openid email profile"},
 		"state":         {state},
@@ -72,7 +83,7 @@ func (h *Handler) HandleGoogleCallback(w http.ResponseWriter, r *http.Request) {
 		"code":          {code},
 		"client_id":     {h.Config.GoogleClientID},
 		"client_secret": {h.Config.GoogleSecret},
-		"redirect_uri":  {h.Config.BaseURL + "/auth/google/callback"},
+		"redirect_uri":  {h.baseURL(r) + "/auth/google/callback"},
 		"grant_type":    {"authorization_code"},
 	}
 
