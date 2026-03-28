@@ -36,8 +36,11 @@ func (h *Handler) baseURL(r *http.Request) string {
 	if h.Config.BaseURL != "" {
 		return h.Config.BaseURL
 	}
+	// In production, TLS is terminated by kamal-proxy with forward_headers: false,
+	// so r.TLS is nil and X-Forwarded-Proto is absent. Default to https unless
+	// DEV_MODE is on (where the Vite proxy runs on plain http).
 	scheme := "https"
-	if r.TLS == nil && !strings.HasPrefix(r.Header.Get("X-Forwarded-Proto"), "https") {
+	if h.Config.DevMode {
 		scheme = "http"
 	}
 	return scheme + "://" + r.Host
