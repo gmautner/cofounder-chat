@@ -9,10 +9,10 @@ describe('MessageInput', () => {
       <MessageInput
         onSend={vi.fn()}
         onTyping={vi.fn()}
-        placeholder="Message #general"
+        placeholder="Mensagem no #general"
       />,
     )
-    expect(screen.getByPlaceholderText('Message #general')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('Mensagem no #general')).toBeInTheDocument()
   })
 
   it('send button is disabled when input is empty', () => {
@@ -25,7 +25,7 @@ describe('MessageInput', () => {
     const user = userEvent.setup()
     render(<MessageInput onSend={vi.fn()} onTyping={vi.fn()} />)
 
-    const textarea = screen.getByPlaceholderText('Type a message...')
+    const textarea = screen.getByPlaceholderText('Escreva uma mensagem...')
     await user.type(textarea, 'Hello world')
 
     const sendButton = screen.getByRole('button')
@@ -37,7 +37,7 @@ describe('MessageInput', () => {
     const onSend = vi.fn().mockResolvedValue(undefined)
     render(<MessageInput onSend={onSend} onTyping={vi.fn()} />)
 
-    const textarea = screen.getByPlaceholderText('Type a message...')
+    const textarea = screen.getByPlaceholderText('Escreva uma mensagem...')
     await user.type(textarea, 'Hello world')
     await user.click(screen.getByRole('button'))
 
@@ -50,7 +50,7 @@ describe('MessageInput', () => {
     render(<MessageInput onSend={onSend} onTyping={vi.fn()} />)
 
     const textarea = screen.getByPlaceholderText(
-      'Type a message...',
+      'Escreva uma mensagem...',
     ) as HTMLTextAreaElement
     await user.type(textarea, 'Hello')
     await user.click(screen.getByRole('button'))
@@ -65,7 +65,7 @@ describe('MessageInput', () => {
       <MessageInput onSend={vi.fn()} onTyping={onTyping} />,
     )
 
-    const textarea = screen.getByPlaceholderText('Type a message...')
+    const textarea = screen.getByPlaceholderText('Escreva uma mensagem...')
     await user.type(textarea, 'H')
 
     expect(onTyping).toHaveBeenCalled()
@@ -73,7 +73,7 @@ describe('MessageInput', () => {
 
   it('shows keyboard shortcuts hint', () => {
     render(<MessageInput onSend={vi.fn()} onTyping={vi.fn()} />)
-    expect(screen.getByText(/to send/)).toBeInTheDocument()
-    expect(screen.getByText(/for new line/)).toBeInTheDocument()
+    expect(screen.getByText(/para enviar/)).toBeInTheDocument()
+    expect(screen.getByText(/para nova linha/)).toBeInTheDocument()
   })
 })

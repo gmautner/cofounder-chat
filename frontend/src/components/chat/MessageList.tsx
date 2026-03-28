@@ -67,8 +67,8 @@ export function MessageList({
               />
             </svg>
           </div>
-          <p className="text-sm font-medium">No messages yet</p>
-          <p className="mt-1 text-xs">Start the conversation!</p>
+          <p className="text-sm font-medium">Nenhuma mensagem ainda</p>
+          <p className="mt-1 text-xs">Comece a conversar!</p>
         </div>
       ) : (
         <div className="py-4">
@@ -95,7 +95,7 @@ export function MessageList({
             </span>
             <span className="font-medium">
               {typingNames.join(', ')}{' '}
-              {typingNames.length === 1 ? 'is' : 'are'} typing...
+              {typingNames.length === 1 ? 'está' : 'estão'} digitando...
             </span>
           </div>
         </div>

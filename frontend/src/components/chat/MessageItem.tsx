@@ -131,7 +131,7 @@ export function MessageItem({ message, currentUser, onEdit, onDelete }: MessageI
             {formatTime(message.created_at)}
           </span>
           {message.is_edited && (
-            <span className="text-xs text-muted-foreground/60">(edited)</span>
+            <span className="text-xs text-muted-foreground/60">(editado)</span>
           )}
         </div>
 
@@ -150,16 +150,16 @@ export function MessageItem({ message, currentUser, onEdit, onDelete }: MessageI
                 onClick={handleSaveEdit}
                 className="inline-flex items-center gap-1 rounded-md bg-primary px-2.5 py-1 text-xs font-medium text-primary-foreground hover:bg-primary/90 cursor-pointer"
               >
-                <Check className="h-3 w-3" /> Save
+                <Check className="h-3 w-3" /> Salvar
               </button>
               <button
                 onClick={handleCancelEdit}
                 className="inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-xs font-medium text-muted-foreground hover:bg-muted cursor-pointer"
               >
-                <X className="h-3 w-3" /> Cancel
+                <X className="h-3 w-3" /> Cancelar
               </button>
               <span className="text-xs text-muted-foreground">
-                Esc to cancel · Enter to save
+                Esc para cancelar · Enter para salvar
               </span>
             </div>
           </div>
@@ -171,7 +171,7 @@ export function MessageItem({ message, currentUser, onEdit, onDelete }: MessageI
 
         {message.reply_count > 0 && (
           <div className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-primary cursor-pointer hover:underline">
-            {message.reply_count} {message.reply_count === 1 ? 'reply' : 'replies'}
+            {message.reply_count} {message.reply_count === 1 ? 'resposta' : 'respostas'}
           </div>
         )}
       </div>
@@ -185,14 +185,14 @@ export function MessageItem({ message, currentUser, onEdit, onDelete }: MessageI
               setIsEditing(true)
             }}
             className="rounded p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground cursor-pointer"
-            title="Edit message"
+            title="Editar mensagem"
           >
             <Pencil className="h-3.5 w-3.5" />
           </button>
           <button
             onClick={() => onDelete(message.id)}
             className="rounded p-1.5 text-muted-foreground hover:bg-destructive/10 hover:text-destructive cursor-pointer"
-            title="Delete message"
+            title="Excluir mensagem"
           >
             <Trash2 className="h-3.5 w-3.5" />
           </button>

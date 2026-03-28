@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils'
 import type { Channel, Conversation, UnreadCount, AuthUser } from '@/lib/types'
 import { useNavigate } from 'react-router-dom'
+import { useTheme } from '@/hooks/useTheme'
 import {
   Hash,
   Lock,
@@ -9,6 +10,9 @@ import {
   Search,
   LogOut,
   ChevronDown,
+  Sun,
+  Moon,
+  Monitor,
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -38,6 +42,7 @@ export function Sidebar({
   onLogout,
 }: SidebarProps) {
   const navigate = useNavigate()
+  const { theme, cycleTheme } = useTheme()
   const [channelsOpen, setChannelsOpen] = useState(true)
   const [dmsOpen, setDmsOpen] = useState(true)
 
@@ -47,7 +52,7 @@ export function Sidebar({
 
   const getConversationDisplayName = (conv: Conversation) => {
     const others = conv.members.filter((m) => m.id !== currentUser.id)
-    if (others.length === 0) return 'You'
+    if (others.length === 0) return 'Você'
     return others.map((m) => m.display_name).join(', ')
   }
 
@@ -58,7 +63,7 @@ export function Sidebar({
 
   const getConversationInitials = (conv: Conversation) => {
     const other = conv.members.find((m) => m.id !== currentUser.id)
-    if (!other) return 'Y'
+    if (!other) return 'V'
     return (
       other.display_name
         ?.split(' ')
@@ -77,13 +82,23 @@ export function Sidebar({
       .slice(0, 2)
       .toUpperCase() || '?'
 
+  const ThemeIcon = theme === 'dark' ? Moon : theme === 'light' ? Sun : Monitor
+  const themeLabel = theme === 'dark' ? 'Escuro' : theme === 'light' ? 'Claro' : 'Sistema'
+
   return (
     <div className="flex h-full w-64 flex-shrink-0 flex-col bg-sidebar text-sidebar-foreground">
       {/* Header */}
-      <div className="flex h-14 items-center border-b border-sidebar-border px-4">
+      <div className="flex h-14 items-center justify-between border-b border-sidebar-border px-4">
         <h1 className="text-base font-bold tracking-tight text-sidebar-primary-foreground">
           Cofounder Chat
         </h1>
+        <button
+          onClick={cycleTheme}
+          className="rounded-md p-1.5 text-sidebar-foreground/40 hover:bg-sidebar-accent hover:text-sidebar-foreground/80 cursor-pointer"
+          title={`Tema: ${themeLabel}`}
+        >
+          <ThemeIcon className="h-4 w-4" />
+        </button>
       </div>
 
       {/* Scrollable content */}
@@ -100,7 +115,7 @@ export function Sidebar({
                 !channelsOpen && '-rotate-90',
               )}
             />
-            Channels
+            Canais
           </button>
 
           {channelsOpen && (
@@ -141,14 +156,14 @@ export function Sidebar({
                   className="flex flex-1 items-center gap-2 rounded-md px-2 py-1.5 text-sm text-sidebar-foreground/50 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground/80 cursor-pointer"
                 >
                   <Plus className="h-3.5 w-3.5" />
-                  Create
+                  Criar
                 </button>
                 <button
                   onClick={onBrowseChannels}
                   className="flex flex-1 items-center gap-2 rounded-md px-2 py-1.5 text-sm text-sidebar-foreground/50 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground/80 cursor-pointer"
                 >
                   <Search className="h-3.5 w-3.5" />
-                  Browse
+                  Explorar
                 </button>
               </div>
             </div>
@@ -167,7 +182,7 @@ export function Sidebar({
                 !dmsOpen && '-rotate-90',
               )}
             />
-            Direct Messages
+            Mensagens Diretas
           </button>
 
           {dmsOpen && (
@@ -217,7 +232,7 @@ export function Sidebar({
                 className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm text-sidebar-foreground/50 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground/80 cursor-pointer"
               >
                 <MessageSquarePlus className="h-3.5 w-3.5" />
-                New message
+                Nova mensagem
               </button>
             </div>
           )}
@@ -249,7 +264,7 @@ export function Sidebar({
           <button
             onClick={onLogout}
             className="rounded-md p-1.5 text-sidebar-foreground/40 hover:bg-sidebar-accent hover:text-sidebar-foreground/80 cursor-pointer"
-            title="Log out"
+            title="Sair"
           >
             <LogOut className="h-4 w-4" />
           </button>

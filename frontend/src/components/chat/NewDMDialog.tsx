@@ -70,16 +70,16 @@ export function NewDMDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>New message</DialogTitle>
+          <DialogTitle>Nova mensagem</DialogTitle>
           <DialogDescription>
-            Start a direct message with someone on your team.
+            Inicie uma conversa direta com alguém do seu time.
           </DialogDescription>
         </DialogHeader>
 
         <Input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search by name or email..."
+          placeholder="Buscar por nome ou email..."
           autoFocus
         />
 
@@ -90,7 +90,7 @@ export function NewDMDialog({
             </div>
           ) : users.length === 0 ? (
             <p className="py-8 text-center text-sm text-muted-foreground">
-              {search ? 'No users found' : 'No other users yet'}
+              {search ? 'Nenhum usuário encontrado' : 'Nenhum outro usuário ainda'}
             </p>
           ) : (
             <div className="space-y-0.5">

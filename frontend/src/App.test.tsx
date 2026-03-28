@@ -24,27 +24,27 @@ describe('LoginPage', () => {
     )
   })
 
-  it('renders Sign in with Google link', () => {
+  it('renders Entrar com Google link', () => {
     render(<TestLoginPage />)
-    expect(screen.getByText('Sign in with Google')).toBeInTheDocument()
+    expect(screen.getByText('Entrar com Google')).toBeInTheDocument()
   })
 
   it('links to Google OAuth endpoint', () => {
     render(<TestLoginPage />)
-    const link = screen.getByText('Sign in with Google').closest('a')
+    const link = screen.getByText('Entrar com Google').closest('a')
     expect(link).toHaveAttribute('href', '/auth/google/login')
   })
 
   it('renders the subtitle text', () => {
     render(<TestLoginPage />)
     expect(
-      screen.getByText('Real-time messaging for your team'),
+      screen.getByText('Mensagens em tempo real para seu time'),
     ).toBeInTheDocument()
   })
 
   it('shows dev login button in development mode', () => {
     render(<TestLoginPage />)
     // In test env, import.meta.env.DEV is true
-    expect(screen.getByText('Quick dev login')).toBeInTheDocument()
+    expect(screen.getByText('Login de teste')).toBeInTheDocument()
   })
 })

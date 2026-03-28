@@ -11,7 +11,7 @@ interface MessageInputProps {
 export function MessageInput({
   onSend,
   onTyping,
-  placeholder = 'Type a message...',
+  placeholder = 'Escreva uma mensagem...',
   disabled = false,
 }: MessageInputProps) {
   const [content, setContent] = useState('')
@@ -67,7 +67,7 @@ export function MessageInput({
 
   return (
     <div className="border-t border-border bg-background px-5 py-3">
-      <div className="flex items-end gap-2 rounded-xl border border-input bg-background px-4 py-2 focus-within:ring-2 focus-within:ring-ring/50 transition-shadow">
+      <div className="flex items-center gap-2 rounded-xl border border-input bg-background px-4 py-3 focus-within:ring-2 focus-within:ring-ring/50 transition-shadow">
         <textarea
           ref={textareaRef}
           value={content}
@@ -87,8 +87,8 @@ export function MessageInput({
         </button>
       </div>
       <p className="mt-1.5 text-[11px] text-muted-foreground/60 px-1">
-        <kbd className="font-mono">Enter</kbd> to send ·{' '}
-        <kbd className="font-mono">Shift+Enter</kbd> for new line
+        <kbd className="font-mono">Enter</kbd> para enviar ·{' '}
+        <kbd className="font-mono">Shift+Enter</kbd> para nova linha
       </p>
     </div>
   )

@@ -58,16 +58,15 @@ export function CreateChannelDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Create a channel</DialogTitle>
+          <DialogTitle>Criar um canal</DialogTitle>
           <DialogDescription>
-            Channels are where your team communicates. They&apos;re best
-            organized around a topic.
+            Canais são onde seu time se comunica. Organize-os por assunto.
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="text-sm font-medium text-foreground">Name</label>
+            <label className="text-sm font-medium text-foreground">Nome</label>
             <div className="relative mt-1.5">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                 {isPrivate ? (
@@ -79,7 +78,7 @@ export function CreateChannelDialog({
               <Input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="e.g. marketing"
+                placeholder="ex: marketing"
                 className="pl-9"
                 autoFocus
               />
@@ -88,15 +87,15 @@ export function CreateChannelDialog({
 
           <div>
             <label className="text-sm font-medium text-foreground">
-              Description{' '}
+              Descrição{' '}
               <span className="font-normal text-muted-foreground">
-                (optional)
+                (opcional)
               </span>
             </label>
             <Input
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="What's this channel about?"
+              placeholder="Sobre o que é este canal?"
               className="mt-1.5"
             />
           </div>
@@ -116,9 +115,9 @@ export function CreateChannelDialog({
               />
             </button>
             <div>
-              <p className="text-sm font-medium">Private channel</p>
+              <p className="text-sm font-medium">Canal privado</p>
               <p className="text-xs text-muted-foreground">
-                Only invited members can see and join
+                Apenas membros convidados podem ver e entrar
               </p>
             </div>
           </div>
@@ -133,13 +132,13 @@ export function CreateChannelDialog({
               variant="outline"
               onClick={() => onOpenChange(false)}
             >
-              Cancel
+              Cancelar
             </Button>
             <Button type="submit" disabled={!name.trim() || loading}>
               {loading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
-              Create
+              Criar
             </Button>
           </div>
         </form>

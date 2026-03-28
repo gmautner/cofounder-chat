@@ -57,9 +57,9 @@ export function BrowseChannelsDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Browse channels</DialogTitle>
+          <DialogTitle>Explorar canais</DialogTitle>
           <DialogDescription>
-            Find and join public channels to stay in the loop.
+            Encontre e entre em canais públicos.
           </DialogDescription>
         </DialogHeader>
 
@@ -70,7 +70,7 @@ export function BrowseChannelsDialog({
             </div>
           ) : channels.length === 0 ? (
             <p className="py-8 text-center text-sm text-muted-foreground">
-              You&apos;re already in all available channels!
+              Você já está em todos os canais disponíveis!
             </p>
           ) : (
             <div className="space-y-0.5">

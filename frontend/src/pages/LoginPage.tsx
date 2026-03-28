@@ -35,7 +35,7 @@ export function LoginPage() {
             Cofounder Chat
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Real-time messaging for your team
+            Mensagens em tempo real para seu time
           </p>
         </div>
 
@@ -67,7 +67,7 @@ export function LoginPage() {
                 opacity="0.9"
               />
             </svg>
-            Sign in with Google
+            Entrar com Google
           </a>
 
           {isDev && (
@@ -78,7 +78,7 @@ export function LoginPage() {
                 </div>
                 <div className="relative flex justify-center text-xs">
                   <span className="bg-card px-2 text-muted-foreground">
-                    Development
+                    Desenvolvimento
                   </span>
                 </div>
               </div>
@@ -91,14 +91,14 @@ export function LoginPage() {
                 {devLoading ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
                 ) : null}
-                Quick dev login
+                Login de teste
               </button>
             </>
           )}
         </div>
 
         <p className="mt-6 text-center text-xs text-muted-foreground/60">
-          Sign in to access your team&apos;s workspace
+          Faça login para acessar seu time
         </p>
       </div>
     </div>

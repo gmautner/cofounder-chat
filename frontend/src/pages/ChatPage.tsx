@@ -309,21 +309,23 @@ export function ChatPage() {
           <>
             {/* Header */}
             <header className="flex h-14 flex-shrink-0 items-center border-b border-border px-5">
-              <div className="flex items-center gap-2">
-                {activeChannel ? (
-                  activeChannel.is_private ? (
-                    <Lock className="h-4 w-4 text-muted-foreground" />
+              <div className="flex items-baseline gap-2">
+                <div className="flex items-center gap-2">
+                  {activeChannel ? (
+                    activeChannel.is_private ? (
+                      <Lock className="h-4 w-4 text-muted-foreground" />
+                    ) : (
+                      <Hash className="h-4 w-4 text-muted-foreground" />
+                    )
                   ) : (
-                    <Hash className="h-4 w-4 text-muted-foreground" />
-                  )
-                ) : (
-                  <Users className="h-4 w-4 text-muted-foreground" />
-                )}
-                <h2 className="text-sm font-semibold">{headerTitle}</h2>
+                    <Users className="h-4 w-4 text-muted-foreground" />
+                  )}
+                  <h2 className="text-sm font-semibold">{headerTitle}</h2>
+                </div>
                 {headerDescription && (
                   <>
-                    <span className="text-muted-foreground/40">·</span>
-                    <p className="text-xs text-muted-foreground truncate max-w-md">
+                    <span className="text-muted-foreground/30">|</span>
+                    <p className="text-sm text-muted-foreground truncate max-w-md">
                       {headerDescription}
                     </p>
                   </>
@@ -352,8 +354,8 @@ export function ChatPage() {
               onTyping={handleTyping}
               placeholder={
                 activeChannel
-                  ? `Message #${activeChannel.name}`
-                  : `Message ${headerTitle}`
+                  ? `Mensagem no #${activeChannel.name}`
+                  : `Mensagem para ${headerTitle}`
               }
             />
           </>
@@ -364,10 +366,10 @@ export function ChatPage() {
               <MessageSquare className="h-10 w-10 text-primary/30" />
             </div>
             <h2 className="text-lg font-semibold text-foreground">
-              Welcome to Cofounder Chat
+              Bem-vindo ao Cofounder Chat
             </h2>
             <p className="mt-1 text-sm">
-              Select a channel or conversation to start messaging
+              Selecione um canal ou conversa para começar
             </p>
           </div>
         )}

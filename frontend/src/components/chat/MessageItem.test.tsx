@@ -60,7 +60,7 @@ describe('MessageItem', () => {
         onDelete={vi.fn()}
       />,
     )
-    expect(screen.getByText('(edited)')).toBeInTheDocument()
+    expect(screen.getByText('(editado)')).toBeInTheDocument()
   })
 
   it('does not show (edited) for non-edited messages', () => {
@@ -72,7 +72,7 @@ describe('MessageItem', () => {
         onDelete={vi.fn()}
       />,
     )
-    expect(screen.queryByText('(edited)')).not.toBeInTheDocument()
+    expect(screen.queryByText('(editado)')).not.toBeInTheDocument()
   })
 
   it('shows reply count when there are replies', () => {
@@ -85,7 +85,7 @@ describe('MessageItem', () => {
         onDelete={vi.fn()}
       />,
     )
-    expect(screen.getByText('5 replies')).toBeInTheDocument()
+    expect(screen.getByText('5 respostas')).toBeInTheDocument()
   })
 
   it('shows singular reply text for 1 reply', () => {
@@ -98,7 +98,7 @@ describe('MessageItem', () => {
         onDelete={vi.fn()}
       />,
     )
-    expect(screen.getByText('1 reply')).toBeInTheDocument()
+    expect(screen.getByText('1 resposta')).toBeInTheDocument()
   })
 
   it('does not show action buttons for other users messages', () => {
@@ -112,8 +112,8 @@ describe('MessageItem', () => {
       />,
     )
     // Action buttons should not be in the DOM for other user's messages
-    expect(screen.queryByTitle('Edit message')).not.toBeInTheDocument()
-    expect(screen.queryByTitle('Delete message')).not.toBeInTheDocument()
+    expect(screen.queryByTitle('Editar mensagem')).not.toBeInTheDocument()
+    expect(screen.queryByTitle('Excluir mensagem')).not.toBeInTheDocument()
   })
 
   it('renders initials when no avatar', () => {
