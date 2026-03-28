@@ -309,22 +309,20 @@ export function ChatPage() {
           <>
             {/* Header */}
             <header className="flex h-14 flex-shrink-0 items-center border-b border-border px-5">
-              <div className="flex items-baseline gap-2">
-                <div className="flex items-center gap-2">
-                  {activeChannel ? (
-                    activeChannel.is_private ? (
-                      <Lock className="h-4 w-4 text-muted-foreground" />
-                    ) : (
-                      <Hash className="h-4 w-4 text-muted-foreground" />
-                    )
+              <div className="flex items-center gap-2">
+                {activeChannel ? (
+                  activeChannel.is_private ? (
+                    <Lock className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                   ) : (
-                    <Users className="h-4 w-4 text-muted-foreground" />
-                  )}
-                  <h2 className="text-sm font-semibold">{headerTitle}</h2>
-                </div>
+                    <Hash className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  )
+                ) : (
+                  <Users className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                )}
+                <h2 className="text-sm font-semibold">{headerTitle}</h2>
                 {headerDescription && (
                   <>
-                    <span className="text-muted-foreground/30">|</span>
+                    <span className="text-muted-foreground/30 text-sm">|</span>
                     <p className="text-sm text-muted-foreground truncate max-w-md">
                       {headerDescription}
                     </p>
